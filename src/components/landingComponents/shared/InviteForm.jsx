@@ -1,78 +1,44 @@
+import { Button } from '@/components/ui/button'
+import { Card, CardAction, CardHeader, CardTitle } from '@/components/ui/card'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Plus } from 'lucide-react'
 import React from 'react'
-import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 
 const formSchema = z.object({
-  email: z.string().email({ message: 'Invalid email address' }),
-  name: z.string().min(1, { message: 'Name is required' }),
-  message: z.string().optional(),
+    collaboratorEmail: z.array(
+        z.string().email("Invalid email address").min(5, "Must be at least 5 characters long"),
+    ).min(1, "At least one email is required")
 })
 
 const InviteForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm()
 
-    const onSubmit = (data) => {
-        const result = formSchema.safeParse(data)
-        if (!result.success) {
-            console.error(result.error.format())
-            return
+    const form = useForm({
+        resolver: zodResolver(formSchema),
+        defaultValues: {
+            collaboratorEmail: [""]
         }
-        console.log('Form submitted successfully:', result.data)
+    })
+
+    const onSubmit = async (data) => {
+        console.log(data)
     }
 
-    return (
-        <div>
-            <form id="invite-form" onSubmit={handleSubmit(onSubmit)}>
-                <input
-                    id="email"
-                    type="email"
-                    placeholder="Email"
-                    {...register('email')}
-                />
-                {errors.email && <p>{errors.email.message}</p>}
-
-                <input
-                    id="name"
-                    type="text"
-                    placeholder="Name"
-                    {...register('name')}
-                />
-                {errors.name && <p>{errors.name.message}</p>}
-
-                <textarea
-                    id="message"
-                    placeholder="Message"
-                    {...register('message')}
-                />
-                {errors.message && <p>{errors.message.message}</p>}
-
-                <button type="submit">Invite</button>
-            </form>
-        </div>
-    )
-}
-
-export default InviteForm
-        form.addEventListener('submit', (event) => {
-            event.preventDefault()
-
-            const email = emailInput.value
-            const name = nameInput.value
-            const message = messageInput.value
-
-            const result = formSchema.safeParse({ email, name, message })
-
-            if (!result.success) {
-                console.error(result.error.format())
-                return
-            }
-
-            console.log('Form submitted successfully:', result.data)
-        }),
-     []
   return (
-    <div>InviteForm</div>
+    <form onSubmit={form.handleSubmit(onSubmit)}>
+        <Card>
+            <CardHeader>
+                <CardTitle>Invite Collaborators</CardTitle>
+                <CardDescription>Enter the email addresses of the people you want to invite.</CardDescription>
+                <CardAction>
+                    <Button variant='outline' size='icon'>
+                        <Plus />
+                    </Button>
+                </CardAction>
+            </CardHeader>
+        </Card>
+    </form>
   )
-
+}
 
 export default InviteForm
