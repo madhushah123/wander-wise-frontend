@@ -23,8 +23,11 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { toast } from 'sonner';
 import api from '@/api/axios';
+import { useNavigate } from 'react-router-dom';
 
-const Trip = () => {
+const Baggage = () => {
+
+  const navigate = useNavigate();  
 
   const [dependency, setDependency] = React.useState(0);
 
@@ -61,7 +64,7 @@ const Trip = () => {
       <Card>
         <CardHeader className="border-b">
           <CardTitle className="text-2xl font-semibold">Your Trips</CardTitle>
-          <CardDescription>Trips that you are part of.</CardDescription>
+          <CardDescription>Select any one trip to show baggages.</CardDescription>
 
           <CardAction>
             <a href="/trips/add">
@@ -85,23 +88,6 @@ const Trip = () => {
                         <CardDescription>
                           {formatDate(trip.startDate)}
                         </CardDescription>
-                        <CardAction>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger
-                              render={<Button variant="outline" />}
-                            >
-                                <Ellipsis />
-                              Open
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                              <DropdownMenuGroup>
-                                <DropdownMenuItem><a className="w-full" href={`/trips/${trip._id}`}>View</a></DropdownMenuItem>
-                                <DropdownMenuItem><a className="w-full" href={`/trips/edit/${trip._id}`}>Edit</a></DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => {handleDelete(trip._id)}}>Delete</DropdownMenuItem>
-                              </DropdownMenuGroup>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        </CardAction>
                       </CardHeader>
                       <CardContent>
                         <p>
@@ -112,13 +98,7 @@ const Trip = () => {
                         </p>
                       </CardContent>
                       <CardFooter>
-                        {trip.destinations.map((destination) => {
-                          return (
-                            <span className="bg-amber-200 px-2 py-1 rounded-sm text-sm">
-                              {destination}
-                            </span>
-                          );
-                        })}
+                       <Button onClick={()=>{navigate(`/baggage/${trip._id}`)}} className={"w-full"}>View Baggages</Button>
                       </CardFooter>
                     </Card>
                   );
@@ -136,4 +116,4 @@ const Trip = () => {
   )
 }
 
-export default Trip
+export default Baggage

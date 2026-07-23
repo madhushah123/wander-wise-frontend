@@ -20,7 +20,7 @@ const budgetSchema = z.object({
 
 const formSchema = z.object({
   title: z.string().min(5, "Title must be atleast 5 characters"),
-  description: z.string().min(20, "Description must be atleast 5 characters"),
+  description: z.string().min(5, "Description must be atleast 5 characters"),
   startDate: z.coerce.date(),
   endDate: z.coerce.date(),
   destinations: z.array(
@@ -35,7 +35,7 @@ const TripForm = ({ tripData }) => {
 
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    defaultValues: tripData || {
       title: "",
       description: "",
       startDate: new Date().toISOString().split('T')[0],
@@ -80,10 +80,10 @@ const TripForm = ({ tripData }) => {
         toast.success("Trip updated successfully");
         navigate("/trips");
       }else{
-        toast.error(response.message || "Some error occured while updating trip");
+        toast.error(response.message || "Some error occured while editing trip");
       }
     }catch(error){
-      toast.error(error.message || "Some error occured while updating trip");
+      toast.error(error.message || "Some error occured while editing trip");
       console.log(error);
     }
     

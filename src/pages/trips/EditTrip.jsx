@@ -1,4 +1,3 @@
-
 import TripForm from '@/components/landingComponents/shared/TripForm';
 import useApi from '@/hooks/useApi';
 import { Loader2 } from 'lucide-react';

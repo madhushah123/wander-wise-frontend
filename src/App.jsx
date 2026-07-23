@@ -12,6 +12,13 @@ import Trip from './pages/trips/Trip'
 import Dashboard from './pages/Dashboard'
 import TripDetails from './pages/trips/TripDetails'
 import EditTrip from './pages/trips/EditTrip'
+import AcceptInvite from './pages/trips/AcceptInvite'
+import Baggage from './pages/baggage/Baggage'
+import BaggageDetails from './pages/baggage/BaggageDetails'
+import Itinerary from './pages/itinerary/Itinerary'
+import AddItinerary from './pages/itinerary/AddItinerary'
+import ItineraryForm from './components/landingComponents/shared/ItineraryForm'
+import ItineraryDetails from './pages/itinerary/ItineraryDetails'
 
 const App = () => {
 
@@ -57,14 +64,24 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
 
-        <Route element={<ProtectedRoutes />}>
+        <Route element={<ProtectedRoutes />} >
 
           <Route path='/dashboard' element={<Dashboard />} />
           
           <Route path='/trips/add' element={<AddTrip />} />
           <Route path="/trips" element={<Trip />} />
           <Route path="/trips/edit/:tripId" element={<EditTrip />} />
+          <Route path="/trips/:tripId/invite/accept" element={<AcceptInvite/>}/>
           <Route path="/trips/:tripId" element={<TripDetails />} />
+          <Route path="/baggage/:tripId" element={<BaggageDetails />} />
+          
+          <Route path="/baggage" element={<Baggage />} />
+          <Route path="/baggage/:tripId" element={<BaggageDetails />} />
+
+          <Route path='/itinerary' element={<Itinerary />} />
+          <Route path='/itinerary/add/:tripId' element={<AddItinerary />} />
+          <Route path='/itinerary/:tripId' element={<ItineraryDetails />} />
+
 
         </Route>
 

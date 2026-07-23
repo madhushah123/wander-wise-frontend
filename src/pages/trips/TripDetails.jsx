@@ -8,6 +8,7 @@ import useApi from '@/hooks/useApi';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 import api from '@/api/axios';
+import InviteForm from '@/components/landingComponents/shared/InviteForm';
 
 const TripDetails = () => {
 
@@ -86,7 +87,10 @@ const TripDetails = () => {
               </Button>
             </CardFooter>
           </Card>
+
+          <InviteForm tripId={tripId} />
         </div>
+
     </section> 
 
   )
